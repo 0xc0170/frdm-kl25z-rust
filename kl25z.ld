@@ -29,11 +29,26 @@ SECTIONS
 
     .text :
     {
-        __text = .;
         *(.text*)
-        *(.rodata .rodata.*)
-        __etext = .;
+        KEEP(*(.init))
+        KEEP(*(.fini))
+        *(.rodata*)
+        KEEP(*(.eh_frame*))
     } > FLASH
+
+    .ARM.extab :
+    {
+        *(.ARM.extab* .gnu.linkonce.armextab.*)
+    } > FLASH
+
+    __exidx_start = .;
+    .ARM.exidx :
+    {
+        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+    } > FLASH
+    __exidx_end = .;
+
+    __etext = .;
 
     .data : AT (__etext)
     {
@@ -50,13 +65,6 @@ SECTIONS
         *(COMMON)
         __bss_end__ = .;
     } > RAM
-
-    .ARM.exidx : 
-    {
-        __exidx_start = .;
-        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-        __exidx_end = .;
-    } > FLASH
 
     .heap :
     {

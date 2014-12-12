@@ -3,6 +3,9 @@
 *.so
 *.rlib
 *.dll
+*.elf
+*.bin
+*.map
 
 # Executables
 *.exe

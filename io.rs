@@ -14,27 +14,26 @@
 
 use core::prelude::*;
 use core::intrinsics::{volatile_load, volatile_store};
-pub use core::cmp;
+use core::cell::UnsafeCell;
 
 pub struct VolatileRW<T> {
-    value: T
+    value: UnsafeCell<T>,
 }
 
 impl<T> VolatileRW<T> {
     #[inline]
     pub fn get(&self) -> T {
         unsafe {
-            volatile_load(&self.value)
+            volatile_load(self.value.get() as *const T)
         }
     }
 
     #[inline]
     pub fn set(&self, value: T) {
         unsafe {
-            volatile_store(&self.value as *const T as *mut T, value);
+            volatile_store(self.value.get(), value);
         }
     }
-
 }
 
 impl VolatileRW<u32> {
@@ -65,14 +64,14 @@ impl VolatileRW<u8> {
 }
 
 pub struct VolatileR<T> {
-    value: T
+    value: UnsafeCell<T>,
 }
 
 impl<T> VolatileR<T> {
     #[inline]
     pub fn get(&self) -> T {
         unsafe {
-            volatile_load(&self.value)
+            volatile_load(self.value.get() as *const T)
         }
     }
 }

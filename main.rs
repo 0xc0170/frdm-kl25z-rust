@@ -25,6 +25,16 @@ pub mod kl25z_map;
 pub mod io;
 pub mod init;
 
+pub fn delay(mut cycles: u32) 
+{
+    while cycles > 0 {
+        unsafe {
+            asm!("nop" :::: "volatile");
+        }
+        cycles -= 1;
+    }
+}
+
 #[no_mangle]
 pub fn main() 
 {
@@ -40,5 +50,8 @@ pub fn main()
 
     ptb.psor.set(1 << 18);
 
-    loop {}
+    loop {
+        delay(50000);
+        ptb.ptor.set(1 << 18);
+    }
 }

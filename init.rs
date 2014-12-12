@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-extern crate core;
+// extern crate core;
 
 use kl25z_map::Sim;
 use kl25z_map::Port;
@@ -33,10 +33,23 @@ extern {
 
 
 #[link_section=".vector_table"]
-pub static ISR_VECTOR: [Option<unsafe extern fn()>, .. 3] = [
+pub static ISR_VECTOR: [Option<unsafe extern fn()>, .. 16] = [
   Option::Some(__StackTop),
   Option::Some(reset_handler),
+  Option::Some(nmi_handler),
+  Option::Some(hardfault_handler),
   Option::None,
+  Option::None,
+  Option::None,
+  Option::None,
+  Option::None,
+  Option::None,
+  Option::None,
+  Option::Some(svc_handler),
+  Option::None,
+  Option::None,
+  Option::Some(pendsv_handler),
+  Option::Some(systick_handler),
 ];
 
 #[link_section=".flash_configuration"]
@@ -48,8 +61,9 @@ pub static FLASH_CONFIG_FIELD: [u32, ..4] = [
 ];
 
 #[no_mangle]
-#[no_stack_check]
 pub unsafe extern "C" fn reset_handler() {
+    let sim = Sim::get();
+    sim.copc.set(0x0);
 
     let mut bss  = &mut __bss_start__  as *mut u32;
     let ebss = &mut __bss_end__ as *mut u32;
@@ -59,18 +73,43 @@ pub unsafe extern "C" fn reset_handler() {
         bss = ((bss as u32) + 4) as *mut u32;
     }
 
-    let mut data  = &mut __data_start__  as *mut   u32;
-    let     edata = &mut __data_end__ as *mut   u32;
+    let mut data  = &mut __data_start__  as *mut u32;
+    let     edata = &mut __data_end__ as *mut u32;
     let mut etext = &    __etext as *const u32;
 
     while data < edata {
         *data = *etext;
-        data  = ((data as u32)  + 4) as *mut   u32;
+        data  = ((data as u32)  + 4) as *mut u32;
         etext = ((etext as u32) + 4) as *const u32;
     }
 
     system_init();
     ::main();
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn nmi_handler() {
+    abort();
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn hardfault_handler() {
+    abort();
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn svc_handler() {
+    abort();
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn pendsv_handler() {
+    abort();
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn systick_handler() {
+    abort();
 }
 
 pub fn system_init()
@@ -100,6 +139,12 @@ pub fn system_init()
 #[doc(hidden)]
 #[no_mangle]
 pub extern fn __aeabi_unwind_cpp_pr0() {
+    abort();
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern fn __aeabi_unwind_cpp_pr1() {
     abort();
 }
 

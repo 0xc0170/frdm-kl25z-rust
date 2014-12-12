@@ -29,9 +29,10 @@ RUSTFLAGS += -C relocation-model=static
 RUSTFLAGS += --opt-level $(OPT) -g -Z no-landing-pads 
 RUSTFLAGS += -A dead_code -A unused_variables 
 
-LDFLAGS     = -T kl25z.ld
-LDFLAGS    += -Map=frdm-kl25z-blinky.map
-LDFLAGS    += --gc-sections #-print-gc-sections
+LDFLAGS  = -T kl25z.ld
+LDFLAGS += -Map=frdm-kl25z-blinky.map
+LDFLAGS += --gc-sections
+LDFLAGS += #-print-gc-sections
 
 .SUFFIXES: .o .rs .c
 
