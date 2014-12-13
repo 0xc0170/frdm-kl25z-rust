@@ -36,7 +36,7 @@ LDFLAGS += #-print-gc-sections
 
 .SUFFIXES: .o .rs .c
 
-all: frdm-kl25z-blinky.elf frdm-kl25z-blinky.bin
+all: frdm-kl25z-blinky.elf frdm-kl25z-blinky.bin print_info
 
 .rs.o:
 	$(RUSTC) $(RUSTFLAGS) --emit obj -o $@ $<
@@ -48,7 +48,10 @@ frdm-kl25z-blinky.bin: frdm-kl25z-blinky.elf
 	$(OBJCPY) -O binary $< $@
 
 libcore: libcore.rlib
-	$(RUSTC) $(RUSTFLAGS) rust/src/libcore/lib.rs
+	$(RUSTC) $(RUSTFLAGS) ../rust/src/libcore/lib.rs
+
+print_info:
+	arm-none-eabi-size --totals frdm-kl25z-blinky.elf
 
 .PHONY: clean
 
