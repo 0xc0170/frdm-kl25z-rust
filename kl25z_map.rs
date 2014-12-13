@@ -115,7 +115,7 @@ impl Osc0 {
     }
 }
 
-const BASE_PTA :u32 = 0x400FF040;
+const BASE_PTA :u32 = 0x400FF000;
 
 pub struct Gpio {
     pub pdor : VolatileRW<u32>,

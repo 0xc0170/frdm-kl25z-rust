@@ -18,7 +18,7 @@ LD      := arm-none-eabi-ld
 RUSTC   := rustc
 RUSTPKG := rustpkg
 
-OPT  := 2
+OPT  := 1 #There's a problem with optimization = 0
 ARCH := thumbv6m
 CPU  := cortex-m0
 

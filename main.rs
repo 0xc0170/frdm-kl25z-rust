@@ -42,16 +42,16 @@ pub fn main()
 
     let sim = Sim::get();
     sim.scgc5.bitwise_inc_or(0x400);
-    let portb = Port::get(2);
+    let portb = Port::get(1);
     portb.pcr[18].set(1 << 8);
 
-    let ptb = Gpio::get(2);
+    let ptb = Gpio::get(1);
     ptb.pddr.set(1 << 18);
 
     ptb.psor.set(1 << 18);
 
     loop {
-        delay(50000);
+        delay(500000);
         ptb.ptor.set(1 << 18);
     }
 }

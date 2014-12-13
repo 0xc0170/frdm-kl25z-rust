@@ -117,7 +117,7 @@ pub fn system_init()
     let sim = Sim::get();
     sim.scgc5.bitwise_inc_or(0x0200);
     sim.clkdiv1.set(0x10010000);
-    let porta = Port::get(1);
+    let porta = Port::get(0);
     porta.pcr[18].bitwise_and(-0x01000700);
     porta.pcr[19].bitwise_and(-0x01000700);
     let osc0 = Osc0::get();
@@ -126,14 +126,15 @@ pub fn system_init()
     mcg.c2.set(0x24);
     mcg.c1.set(0x9A);
     mcg.c4.bitwise_and_u8(-0xE0);
-    mcg.c5.set(0x0);
+    mcg.c5.set(0x1);
+    mcg.c6.set(0x0);
     while (mcg.s.get() & 0x10) != 0x0 {};
     while (mcg.s.get() & 0x0C) != 0x08 {};
     mcg.c6.set(0x40);
-    while (mcg.s.get() & 0x0C) != 0x0C {};
+    while (mcg.s.get() & 0x0C) != 0x08 {};
     while (mcg.s.get() & 0x40) == 0x00 {};
     mcg.c1.set(0x1A);
-    while (mcg.s.get() & 0x0C) == 0x0C {};
+    while (mcg.s.get() & 0x0C) != 0x0C {};
 }
 
 #[doc(hidden)]
