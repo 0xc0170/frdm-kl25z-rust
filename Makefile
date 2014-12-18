@@ -48,6 +48,8 @@ frdm-kl25z-blinky.bin: frdm-kl25z-blinky.elf
 	$(OBJCPY) -O binary $< $@
 
 libcore: libcore.rlib
+
+libcore.rlib:
 	$(RUSTC) $(RUSTFLAGS) ../rust/src/libcore/lib.rs
 
 print_info:
