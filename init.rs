@@ -35,9 +35,9 @@ extern {
 #[link_section=".vector_table"]
 pub static ISR_VECTOR: [Option<unsafe extern fn()>, .. 16] = [
   Option::Some(__StackTop),
-  Option::Some(reset_handler),
-  Option::Some(nmi_handler),
-  Option::Some(hardfault_handler),
+  Option::Some(reset_handler as unsafe extern fn()),
+  Option::Some(nmi_handler as unsafe extern fn()),
+  Option::Some(hardfault_handler as unsafe extern fn()),
   Option::None,
   Option::None,
   Option::None,
@@ -45,11 +45,11 @@ pub static ISR_VECTOR: [Option<unsafe extern fn()>, .. 16] = [
   Option::None,
   Option::None,
   Option::None,
-  Option::Some(svc_handler),
+  Option::Some(svc_handler as unsafe extern fn()),
   Option::None,
   Option::None,
-  Option::Some(pendsv_handler),
-  Option::Some(systick_handler),
+  Option::Some(pendsv_handler as unsafe extern fn()),
+  Option::Some(systick_handler as unsafe extern fn()),
 ];
 
 #[link_section=".flash_configuration"]
