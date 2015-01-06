@@ -26,7 +26,7 @@ OBJCPY = arm-none-eabi-objcopy
 
 RUSTFLAGS = -L . --target $(ARCH)-none-eabi -C target-cpu=$(CPU) 
 RUSTFLAGS += -C relocation-model=static
-RUSTFLAGS += --opt-level $(OPT) -g -Z no-landing-pads 
+RUSTFLAGS += -C opt-level=$(OPT) -g -Z no-landing-pads 
 RUSTFLAGS += -A dead_code -A unused_variables 
 
 LDFLAGS  = -T kl25z.ld

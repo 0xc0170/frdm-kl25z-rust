@@ -33,7 +33,7 @@ extern {
 
 
 #[link_section=".vector_table"]
-pub static ISR_VECTOR: [Option<unsafe extern fn()>, .. 16] = [
+pub static ISR_VECTOR: [Option<unsafe extern fn()>; 16] = [
   Option::Some(__StackTop),
   Option::Some(reset_handler as unsafe extern fn()),
   Option::Some(nmi_handler as unsafe extern fn()),
@@ -53,7 +53,7 @@ pub static ISR_VECTOR: [Option<unsafe extern fn()>, .. 16] = [
 ];
 
 #[link_section=".flash_configuration"]
-pub static FLASH_CONFIG_FIELD: [u32, ..4] = [
+pub static FLASH_CONFIG_FIELD: [u32; 4] = [
     0xFFFFFFFF,
     0xFFFFFFFF,
     0xFFFFFFFF,
