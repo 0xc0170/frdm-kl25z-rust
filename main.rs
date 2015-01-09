@@ -14,7 +14,7 @@
 
 #![no_std]
 #![crate_type = "rlib"]
-#![feature(globs, lang_items, asm)]
+#![feature(lang_items, asm)]
 
 #![allow(dead_code)]
 #![allow(non_snake_case)]
