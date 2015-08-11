@@ -118,8 +118,8 @@ pub fn system_init()
     sim.scgc5.bitwise_inc_or(0x0200);
     sim.clkdiv1.set(0x10010000);
     let porta = Port::get(0);
-    porta.pcr[18].bitwise_and(-0x01000700);
-    porta.pcr[19].bitwise_and(-0x01000700);
+    porta.pcr[18].bitwise_and(-0x01000700i32);
+    porta.pcr[19].bitwise_and(-0x01000700i32);
     let osc0 = Osc0::get();
     osc0.cr.set(0x89);
     let mcg = Mcg::get();

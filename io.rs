@@ -1,4 +1,4 @@
-// Copyright 2014 Martin Kojtal (0xc0170)
+// Copyright 2014-2015 Martin Kojtal (0xc0170)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use core::prelude::*;
 use core::intrinsics::{volatile_load, volatile_store};
 use core::cell::UnsafeCell;
 
