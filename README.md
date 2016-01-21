@@ -2,7 +2,7 @@ Blinky demo for FRDM-KL25Z
 ===============
 
 Simple blinky demo for FRDM KL25Z written in Rust. Red LED should be blinking.
-I have tested it with the rust nightly (rustc 1.4.0-nightly (5aca49c69 2015-08-10)). I would like to use rust stable, but currently it does not support no_std, asm and other features for this example.
+I have tested it with the rust nightly (rustc 1.7.0-nightly (7dce32e65 2016-01-20)). I would like to use rust stable, but currently it does not support asm and other features for this example. Please once asm becomes stable, no_std already is, core should also be, not certain if all types are there, send PR updating this example.
 
 The latest version of the Rust compiler can be installed from http://www.rust-lang.org/install.html
 
@@ -20,11 +20,11 @@ make libcore
 
 Then run make, to build this demo.
 
-The size of this demo with optimization set to 1:
+The size of this demo with optimization set to 1 (using <1.5, the demo had size of 1056, now with the 1.7 it's 1064):
 ```
    text    data     bss     dec     hex filename
-   1056       0       0    1056     420 frdm-kl25z-blinky.elf
-   1056       0       0    1056     420 (TOTALS)
+   1064       0       0    1064     428 frdm-kl25z-blinky.elf
+   1064       0       0    1064     428 (TOTALS)
 ```
 
 EnjoY
