@@ -1,4 +1,4 @@
-// Copyright 2014-2015 Martin Kojtal (0xc0170)
+// Copyright 2014-2016 Martin Kojtal (0xc0170)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#![feature(no_std)]
 #![no_std]
 #![crate_type = "rlib"]
 #![feature(lang_items, asm)]
 #![feature(core_intrinsics)]
-#![feature(core)]
 
 #![allow(dead_code)]
 #![allow(non_snake_case)]

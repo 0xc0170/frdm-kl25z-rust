@@ -1,4 +1,4 @@
-// Copyright 2014 Martin Kojtal (0xc0170)
+// Copyright 2014-2016 Martin Kojtal (0xc0170)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -118,14 +118,14 @@ pub fn system_init()
     sim.scgc5.bitwise_inc_or(0x0200);
     sim.clkdiv1.set(0x10010000);
     let porta = Port::get(0);
-    porta.pcr[18].bitwise_and(-0x01000700i32);
-    porta.pcr[19].bitwise_and(-0x01000700i32);
+    porta.pcr[18].bitwise_and(!0x01000700u32);
+    porta.pcr[19].bitwise_and(!0x01000700u32);
     let osc0 = Osc0::get();
     osc0.cr.set(0x89);
     let mcg = Mcg::get();
     mcg.c2.set(0x24);
     mcg.c1.set(0x9A);
-    mcg.c4.bitwise_and_u8(-0xE0);
+    mcg.c4.bitwise_and_u8(!0xE0);
     mcg.c5.set(0x1);
     mcg.c6.set(0x0);
     while (mcg.s.get() & 0x10) != 0x0 {};
